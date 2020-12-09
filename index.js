@@ -1,0 +1,52 @@
+const express = require('express');
+const dotenv = require('dotenv');
+const morgan = require('morgan');
+const connectDB =  require('./config/database_con');
+const app = express();
+
+// Logging
+if (process.env.NODE_ENV === 'development'){
+    app.use(morgan('dev'));
+}
+
+
+// get enviorment variables
+dotenv.config();
+
+// Connect with the DataBase
+connectDB();
+
+// Import register route
+const userAuthRoute = require('./Routes/Users');
+const appAuthRoute  = require('./Routes/clientApp');
+const newsRoute = require('./Routes/News');
+
+// Middleware (body parser for json)
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
+// Route Middlewares
+app.use('/newsapi/user', userAuthRoute);
+app.use('/newsapi/app', appAuthRoute);
+app.use('/newsapi', newsRoute);
+
+app.get('/', (req, res) => {
+
+    console.log(`GET : ${req.body.interests}`);
+    res.send("<h1>working GET</h1>");
+});
+app.post('/', (req, res) => {
+
+    console.log(`POST : ${req.body.interests}`);
+    res.send("<h1>working POST</h1>");
+});
+
+
+var server_port = process.env.MY_PORT || process.env.PORT || 3000;
+var server_host = process.env.MY_HOST || '0.0.0.0';
+
+app.listen(server_port, server_host ,()=>{
+    console.log(`Sever is running in ${process.env.NODE_ENV} mode on port : ${server_port}`);
+});
+
+
