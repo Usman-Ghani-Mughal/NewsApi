@@ -54,7 +54,7 @@ const appLoginValidation = (data) =>{
 
 // User Interest Validation
 const userInterestValidation = (data) =>{
-    if(data.length)
+    if(data.length >= 3)
     {
         return true;
     }
