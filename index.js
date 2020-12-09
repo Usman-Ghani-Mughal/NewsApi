@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === 'development'){
 dotenv.config();
 
 // Connect with the DataBase
-//connectDB();
+connectDB();
 
 // Import register route
 const userAuthRoute = require('./Routes/Users');
