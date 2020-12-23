@@ -9,12 +9,12 @@ var dt = dateTime.create();
 var today_date = dt.format('Y-m-d');
 
 
-router.get('/recomendedNews', verifyToken, async(req, res) => {
+router.get('/recomendedNews:userinterests', verifyToken, async(req, res) => {
     try {
         // check if req have userinterests or not
-        if(req.body.userinterests)
+        if(req.params.userinterests)
         {
-            var user_interests = req.body.userinterests;
+            var user_interests = req.params.userinterests;
             user_interests = user_interests.split(",");
             if(userInterestValidation(user_interests))
             {
@@ -58,7 +58,7 @@ router.get('/recomendedNews', verifyToken, async(req, res) => {
         {
             res.status(400).json({
                 success: 0,
-                reason: "Request body must have userinterests"
+                reason: "Request parameters must have userinterests"
             });
         }
     } catch (err) {
