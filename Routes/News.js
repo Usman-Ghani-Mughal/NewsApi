@@ -37,13 +37,17 @@ router.get('/recomendedNews', verifyToken, async(req, res) => {
                     res.status(200).json({
                         success: 1,
                         totalNews: result.length,
-                        NewsArray: result
+                        reason: "",
+                        NewsArray: result,
+                        
                     });
                 }
                 else
                 {
                     res.status(400).json({
                         success: 0,
+                        totalNews: 0,
+                        reason: "Interestes Does not matched",
                         NewsArray: result
                     });
                 }
@@ -52,7 +56,9 @@ router.get('/recomendedNews', verifyToken, async(req, res) => {
             {
                 res.status(400).json({
                     success: 0,
-                    reason: "Invalid User interests"
+                    totalNews: 0,
+                    reason: "Invalid User interests",
+                    NewsArray: []
                 });
             }
         }
@@ -60,13 +66,17 @@ router.get('/recomendedNews', verifyToken, async(req, res) => {
         {
             res.status(400).json({
                 success: 0,
-                reason: "Request parameters must have userinterests"
+                totalNews: 0,
+                reason: "Request parameters must have userinterests",
+                NewsArray: []
             });
         }
     } catch (err) {
         res.status(400).json({
             success: 0,
-            reason: err
+            totalNews: 0,
+            reason: err,
+            NewsArray: []
         });
     }
     
