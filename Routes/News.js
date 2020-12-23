@@ -36,7 +36,7 @@ router.get('/recomendedNews', verifyToken, async(req, res) => {
                 {
                     res.status(200).json({
                         success: 1,
-                        type: typeof result,
+                        totalNews: result.length,
                         NewsArray: result
                     });
                 }
