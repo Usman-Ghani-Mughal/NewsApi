@@ -9,7 +9,7 @@ var dt = dateTime.create();
 var today_date = dt.format('Y-m-d');
 
 
-router.get('/recomendedNews:userinterests', verifyToken, async(req, res) => {
+router.get('/recomendedNews', verifyToken, async(req, res) => {
     try {
         // check if req have userinterests or not
         if(req.params.userinterests)
