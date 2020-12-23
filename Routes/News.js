@@ -12,9 +12,10 @@ var today_date = dt.format('Y-m-d');
 router.get('/recomendedNews', verifyToken, async(req, res) => {
     try {
         // check if req have userinterests or not
-        if(req.params.userinterests)
+        var query_parameter =  req.query;
+        if(query_parameter.userinterests)
         {
-            var user_interests = req.params.userinterests;
+            var user_interests = query_parameter.userinterests;
             user_interests = user_interests.split(",");
             if(userInterestValidation(user_interests))
             {
