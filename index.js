@@ -31,7 +31,7 @@ app.use('/newsapi/app', appAuthRoute);
 app.use('/newsapi', newsRoute);
 
 app.get('/', (req, res) => {
-    res.send("<h1>working GET</h1>");
+    res.send("<h1>working API</h1>");
 });
 
 
