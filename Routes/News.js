@@ -19,6 +19,9 @@ router.get('/recomendedNews', verifyToken, async(req, res) => {
             console.log("Orignal_user Interest : ",user_interests)
             user_interests = user_interests.split(",");
             console.log("operated user interst : ", user_interests)
+            console.log(user_interests[0])
+            console.log(user_interests[1])
+            console.log(user_interests[2])
             if(userInterestValidation(user_interests))
             {
                 
