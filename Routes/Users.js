@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const UserModel = require('../Models/UserModel');
-const {registerValidation, loginValidation} = require('../Validation/validation');
+const {registerValidation} = require('../Validation/validation');
 const {userInterestValidation} = require('../Validation/validation');
 const bcrypt = require('bcryptjs');
 const verifyToken = require('../Validation/verifyToken');
@@ -57,15 +57,13 @@ router.post('/register', verifyToken , async (req, res) => {
                 if(saveduser){
                     return res.status(200).json({
                         success: 1,
-                        description: savedapp,
-                        from: "ok",
+                        description: saveduser,
                     });
                 }
                 else{
                     return res.status(400).json({
                         success: 0,
                         description: saveduser,
-                        from: "Not ok",
                     });
                 }
             }
@@ -89,7 +87,6 @@ router.post('/register', verifyToken , async (req, res) => {
         res.status(400).json({
             success: 0,
             description: err,
-            from: "error"
         });
         
     }
@@ -97,33 +94,33 @@ router.post('/register', verifyToken , async (req, res) => {
 });
 
 // Login Route
-router.post('/login', async  (req, res) => {
+// router.post('/login', async  (req, res) => {
     
-    // ----------------  Validate data -------------------
-    const {error} = loginValidation(req.body);
-    if (error) return res.status(400).json({message: error.details[0].message})
+//     // ----------------  Validate data -------------------
+//     const {error} = loginValidation(req.body);
+//     if (error) return res.status(400).json({message: error.details[0].message})
 
 
-    // ----------------- Check if email exists  ------------------
-    /*
-        const user = await  UserModel.findOne({email: req.body.email});
-        if (!user) return res.status(400).send('Invalid Email or password');
+//     // ----------------- Check if email exists  ------------------
+//     /*
+//         const user = await  UserModel.findOne({email: req.body.email});
+//         if (!user) return res.status(400).send('Invalid Email or password');
 
-     */
-    // ----------------- Check if password matched  ------------------
-    /**
-     * const validpass = await bcrypt.compare(req.body.password, user.password);
-     * if (!validpass) return res.status(400).send('Invalid Email or password');
-     */
+//      */
+//     // ----------------- Check if password matched  ------------------
+//     /**
+//      * const validpass = await bcrypt.compare(req.body.password, user.password);
+//      * if (!validpass) return res.status(400).send('Invalid Email or password');
+//      */
 
-    res.status(200).json(
-        {
-            success:1,
-            data: req.body
-        }
-    );
+//     res.status(200).json(
+//         {
+//             success:1,
+//             data: req.body
+//         }
+//     );
 
 
-});
+// });
 
 module.exports = router;
