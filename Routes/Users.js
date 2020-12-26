@@ -16,7 +16,8 @@ router.post('/register', verifyToken , async (req, res) => {
         if (error) {
             return res.status(400).json({
                 success: 0,
-                description: error.details[0].message
+                description: error.details[0].message,
+                user_details: {}
             });
         }
         // ----------------- Check if Email already in DB ------------------
@@ -24,7 +25,8 @@ router.post('/register', verifyToken , async (req, res) => {
         if (eamilexists){
             return res.status(400).json({
                 success: 0,
-                description: "Email Already exsist"
+                description: "Email Already exsist",
+                user_details: {}
             });
         } 
         // ----------------  Validate user interests -------------------
@@ -57,13 +59,15 @@ router.post('/register', verifyToken , async (req, res) => {
                 if(saveduser){
                     return res.status(200).json({
                         success: 1,
-                        description: saveduser,
+                        description: "User Saved Successfully!",
+                        user_details: saveduser
                     });
                 }
                 else{
                     return res.status(400).json({
                         success: 0,
-                        description: saveduser,
+                        description: "User Does not Saved Successfully!",
+                        user_details: saveduser
                     });
                 }
             }
@@ -72,6 +76,7 @@ router.post('/register', verifyToken , async (req, res) => {
               return  res.status(400).json({
                         success: 0,
                         description: "Invalid User interests",
+                        user_details: {}
                     });
             }
         }
@@ -80,6 +85,7 @@ router.post('/register', verifyToken , async (req, res) => {
            return res.status(400).json({
                 success: 0,
                 description: "Request Body must have userinterests",
+                user_details: {}
             });
         }
     } catch (err) {
