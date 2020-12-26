@@ -6,10 +6,8 @@ const jwt = require('jsonwebtoken');
 // const dotenv = require('dotenv');
 // dotenv.config();
 
-
 // Register Route
 router.post('/register', async (req, res) => {
-
     // ----------------  Validate data -------------------
     const {error} = registerValidation(req.body);
     if (error) return res.status(400).json({message: error.details[0].message});
@@ -40,6 +38,9 @@ router.post('/register', async (req, res) => {
         /**
          * if(!savedUser) res.satus(400).send("some error")
          */
+        res.status(200).json({
+            success: 1
+        });
     } catch (error) {
         res.status(400).json({
             success: 0,
