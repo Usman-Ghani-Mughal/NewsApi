@@ -55,14 +55,14 @@ router.post('/register', verifyToken , async (req, res) => {
                 // save user into the data base
                 const saveduser = await user.save();
                 if(saveduser){
-                    res.status(200).json({
+                    return res.status(200).json({
                         success: 1,
                         description: savedapp,
                         from: "ok"
                     });
                 }
                 else{
-                    res.status(400).json({
+                    return res.status(400).json({
                         success: 0,
                         description: saveduser,
                         from: "Not ok"
@@ -72,15 +72,15 @@ router.post('/register', verifyToken , async (req, res) => {
             }
             else
             {
-                res.status(400).json({
-                    success: 0,
-                    description: "Invalid User interests",
-                });
+              return  res.status(400).json({
+                        success: 0,
+                        description: "Invalid User interests",
+                    });
             }
         }
         else
         {
-            res.status(400).json({
+           return res.status(400).json({
                 success: 0,
                 description: "Request Body must have userinterests",
             });
