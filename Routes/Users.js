@@ -90,6 +90,7 @@ router.post('/register', verifyToken , async (req, res) => {
         res.status(400).json({
             success: 0,
             description: err,
+            from: "error"
         });
         
     }
