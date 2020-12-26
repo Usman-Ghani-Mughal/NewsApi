@@ -98,20 +98,27 @@ router.get('/latestnews', verifyToken, async(req, res) => {
         {
             res.status(200).json({
                 success: 1,
-                NewsArray: result
+                totalNews: result.length,
+                reason: "",
+                NewsArray: result,
+
             });
         }
         else
         {
             res.status(400).json({
                 success: 0,
-                NewsArray: result
+                totalNews: 0,
+                reason: "No News Avaliable yet",
+                NewsArray: [],
             });
         }
    } catch (err) {
        res.status(400).json({
-           success:0,
-           error: err
+             success: 0,
+            totalNews: 0,
+            reason: "Some Error",
+            NewsArray: [],
        });
    } 
 });
