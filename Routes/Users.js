@@ -1,59 +1,96 @@
 const router = require('express').Router();
 const UserModel = require('../Models/UserModel');
 const {registerValidation, loginValidation} = require('../Validation/validation');
+const {userInterestValidation} = require('../Validation/validation');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken'); 
 const verifyToken = require('../Validation/verifyToken');
+//const jwt = require('jsonwebtoken');
 // const dotenv = require('dotenv');
 // dotenv.config();
 
 // Register Route
 router.post('/register', verifyToken , async (req, res) => {
-    // ----------------  Validate data -------------------
-    const {error} = registerValidation(req.body);
-    if (error) return res.status(400).json({message: error.details[0].message});
-    
-    // ----------------- Check if user already in DB ------------------
-    /*
-        const eamilexists = await  UserModel.findOne({email: req.body.email});
-        if (eamilexists) return res.status(400).send('Email already exists);
-     */
-
-    // ----------------- Hash the password ------------------
-     const salt = await bcrypt.genSalt(parseInt(process.env.salt_number, 10));
-     const hashpassword = await bcrypt.hash(req.body.password, salt);
-     req.body.password = hashpassword;
-
-    // ----------------- Create new user ------------------
-    /* 
-    const user = new UserModel({
-        name: req.body.name,
-          // and so on.
-    });
-    */
-    
-    // ------------------- Store User ----------------------
     try {
-        // save user into the data base
-        // const savedUser = await UserModel.save();
-        /**
-         * if(!savedUser) res.satus(400).send("some error")
-         */
-        res.status(200).json({
-            success: 1
-        });
+        // ----------------  Validate data -------------------
+        const {error} = registerValidation(req.body);
+        if (error) {
+            return res.status(400).json({
+                success: 0,
+                description: error.details[0].message
+            });
+        }
+        // ----------------- Check if Email already in DB ------------------
+        const eamilexists = await  UserModel.findOne({email: req.body.email});
+        if (eamilexists){
+            return res.status(400).json({
+                success: 0,
+                description: "Email Already exsist"
+            });
+        } 
+        // ----------------  Validate user interests -------------------
+        var userinterests = req.body.userinterests;
+        if(userinterests){
+            console.log("Orignal_user Interest : ",userinterests);
+            user_interests = userinterests.split(",");
+            console.log("operated user interst : ", user_interests);
+            console.log(user_interests[0]);
+            console.log(user_interests[1]);
+            console.log(user_interests[2]);
 
-    } catch (error) {
+            if(userInterestValidation(user_interests)){
+                // ----------------- Hash the password ------------------
+                const salt = await bcrypt.genSalt(parseInt(process.env.salt_number, 10));
+                const hashpassword = await bcrypt.hash(req.body.password, salt);
+                req.body.password = hashpassword;
+
+                // ----------------- Create new App ------------------ 
+                const user = new UserModel({
+                    name: req.body.name,
+                    email: req.body.email,
+                    password: req.body.password,
+                    userinterests:req.body.userinterests,
+                    status: "UnBlocked",
+                    statusreason: "Good",
+                });
+                // save user into the data base
+                const saveduser = await user.save();
+                if(saveduser){
+                    res.status(200).json({
+                        success: 1,
+                        description: savedapp
+                    });
+                }
+                else{
+                    res.status(400).json({
+                        success: 0,
+                        description: saveduser
+                    });
+                }
+
+            }
+            else
+            {
+                res.status(400).json({
+                    success: 0,
+                    description: "Invalid User interests",
+                });
+            }
+        }
+        else
+        {
+            res.status(400).json({
+                success: 0,
+                description: "Request Body must have userinterests",
+            });
+        }
+    } catch (err) {
+
         res.status(400).json({
             success: 0,
-            description: 'There is some error'
+            description: err,
         });
+        
     }
-    res.status(200).json({
-        success: 1,
-        data: req.body
-    });
-
 
 });
 
