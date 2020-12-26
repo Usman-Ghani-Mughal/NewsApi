@@ -57,13 +57,15 @@ router.post('/register', verifyToken , async (req, res) => {
                 if(saveduser){
                     res.status(200).json({
                         success: 1,
-                        description: savedapp
+                        description: savedapp,
+                        from: "ok"
                     });
                 }
                 else{
                     res.status(400).json({
                         success: 0,
-                        description: saveduser
+                        description: saveduser,
+                        from: "Not ok"
                     });
                 }
 
