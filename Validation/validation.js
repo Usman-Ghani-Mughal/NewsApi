@@ -14,6 +14,18 @@ const registerValidation = (data) =>{
         return validateuserschema.validate(data);
 }
 
+// Login Validation
+const loginValidation = (data) =>{
+    // set scheme for joi
+    const validateuserschema = Joi.object().keys({
+        email: Joi.string().required().email(),
+        password: Joi.string().min(5).required()
+        });    
+        return validateuserschema.validate(data);
+}
+
+
+
 //  APP Register Validation
 const appRegisterValidation = (data) =>{
     // set scheme for joi
@@ -29,16 +41,7 @@ const appRegisterValidation = (data) =>{
 
 
 
-// Login Validation
-const loginValidation = (data) =>{
-    // set scheme for joi
-    const validateuserschema = Joi.object().keys({
-        email: Joi.string().required().email(),
-        password: Joi.string().min(5).required()
-        });    
-        
-        return validateuserschema.validate(data);
-}
+
 
 // In the end we will move these two validation into other file
 
