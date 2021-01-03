@@ -103,7 +103,7 @@ router.post('/register', verifyToken , async (req, res) => {
 });
 
 // Login Route
-router.post('/login', async  (req, res) => {
+router.post('/login', verifyToken, async  (req, res) => {
     try {
         // ----------------  Validate data -------------------
         const {error} = loginValidation(req.body);
