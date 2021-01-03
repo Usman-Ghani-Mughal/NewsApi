@@ -26,15 +26,16 @@ router.post('/register', verifyToken , async (req, res) => {
                 user_details: {}
             });
         }
-        // ----------------- Check if Email already in DB ------------------
-        const eamilexists = await  UserModel.findOne({email: req.body.email});
-        if (eamilexists){
+        // ----------------- Check if Email or name already in DB ------------------
+        const name_email = await  UserModel.findOne({ $or : [ {email: req.body.email}, {name: req.body.name} ] });
+        if (name_email){
             return res.status(400).json({
                 success: 0,
-                description: "Email Already exsist",
+                description: "Name or email already exists",
                 user_details: {}
             });
-        } 
+        }
+
         // ----------------  Validate user interests -------------------
         var userinterests = req.body.userinterests;
         if(userinterests){
@@ -116,27 +117,18 @@ router.post('/login', verifyToken, async  (req, res) => {
             return res.status(400).json({
                 success: 0,
                 description: error.details[0].message,
-                user_details: {des: "validation failed"}
+                user_details: {}
             })
         }
 
         // ----------------- Check if username matched  ------------------
-        var user = await  UserModel.findOne({name: req.body.email});
-
+        const user = await  UserModel.findOne({name: req.body.name});
         if (!user){
-
-            // ----------------- Check if email matched  ------------------
-            var check_email = await  UserModel.findOne({email: req.body.email});
-            if(!check_email){
-                // nothing matched
-                return res.status(400).json({
-                    success: 0,
-                    description: "'Invalid Email or password'",
-                    user_details: {}
-                });
-            }
-            // user email is matched
-            user = check_email;
+            return res.status(400).json({
+                success: 0,
+                description: "'Invalid name or password'",
+                user_details: {}
+            });
         } 
 
         // ----------------- Check if password matched  ------------------
@@ -151,9 +143,7 @@ router.post('/login', verifyToken, async  (req, res) => {
         }
         else{
             // user info is matched
-
-            res.status(200).json(
-                {
+            res.status(200).json({
                     success:1,
                     description: "Successfuly login",
                     user_details: {
@@ -164,7 +154,7 @@ router.post('/login', verifyToken, async  (req, res) => {
                 }
             );
         }   
-    } catch (err) {
+    }catch (err) {
         res.status(400).json({
             success: 0,
             description: err,
@@ -175,3 +165,16 @@ router.post('/login', verifyToken, async  (req, res) => {
 });
 
 module.exports = router;
+
+
+
+
+// // ----------------- Check if name already in DB ------------------
+        // const nameexists = await  UserModel.findOne({name: req.body.name});
+        // if (nameexists){
+        //     return res.status(400).json({
+        //         success: 0,
+        //         description: "Name or email already exists",
+        //         user_details: {}
+        //     });
+        // }
