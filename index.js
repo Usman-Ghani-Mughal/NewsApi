@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const connectDB =  require('./config/database_con');
 const app = express();
+var cors = require('cors');
 
 // Logging
 if (process.env.NODE_ENV === 'development'){
@@ -24,6 +25,7 @@ const newsRoute = require('./Routes/News');
 // Middleware (body parser for json)
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(cors());
 
 // Route Middlewares
 app.use('/newsapi/user', userAuthRoute);
