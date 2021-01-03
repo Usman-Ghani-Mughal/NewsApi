@@ -116,12 +116,12 @@ router.post('/login', verifyToken, async  (req, res) => {
         }
 
         // ----------------- Check if username matched  ------------------
-        const user = await  UserModel.findOne({name: req.body.email});
+        var user = await  UserModel.findOne({name: req.body.email});
 
         if (!user){
 
             // ----------------- Check if email matched  ------------------
-            const check_email = await  UserModel.findOne({email: req.body.email});
+            var check_email = await  UserModel.findOne({email: req.body.email});
             if(!check_email){
                 // nothing matched
                 return res.status(400).json({
