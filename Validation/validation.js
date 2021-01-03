@@ -19,12 +19,10 @@ const loginValidation = (data) =>{
     // set scheme for joi
     const validateuserschema = Joi.object().keys({
         email: Joi.string().required().email(),
-        password: Joi.string().min(5).required()
+        password: Joi.string().min(8).required()
         });    
         return validateuserschema.validate(data);
 }
-
-
 
 //  APP Register Validation
 const appRegisterValidation = (data) =>{
@@ -37,16 +35,7 @@ const appRegisterValidation = (data) =>{
         return validateuserschema.validate(data);
 }
 
-
-
-
-
-
-
 // In the end we will move these two validation into other file
-
-
-
 
 // App Login Validation
 const appLoginValidation = (data) =>{

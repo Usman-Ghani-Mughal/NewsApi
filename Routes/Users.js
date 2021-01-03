@@ -111,7 +111,7 @@ router.post('/login', verifyToken, async  (req, res) => {
             return res.status(400).json({
                 success: 0,
                 description: error.details[0].message,
-                user_details: {}
+                user_details: {des: "validation failed"}
             })
         }
 
@@ -163,7 +163,7 @@ router.post('/login', verifyToken, async  (req, res) => {
         res.status(400).json({
             success: 0,
             description: err,
-            user_details: {}
+            user_details: {des: "error catched"}
         });
     }
 
