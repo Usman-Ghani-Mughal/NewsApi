@@ -108,6 +108,7 @@ router.post('/register', verifyToken , async (req, res) => {
 
 });
 
+
 // Login Route
 router.post('/login', verifyToken, async  (req, res) => {
     try {
@@ -158,7 +159,7 @@ router.post('/login', verifyToken, async  (req, res) => {
         res.status(400).json({
             success: 0,
             description: err,
-            user_details: {des: "error catched"}
+            user_details: {des: "Some Error"}
         });
     }
 
