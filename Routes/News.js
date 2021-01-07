@@ -169,6 +169,184 @@ router.get('/latestnews', verifyToken, async(req, res) => {
  });
 
 
+// get world news
+ router.get('/world', verifyToken, async(req, res) => {
+    try {
+
+        // Make query
+        var query = {
+            $or:[
+                    {Label:"WORLD"},
+                ],
+            Date : today_date
+        }
+        
+         const result =  await NewsModel.find(query);
+         if(result)
+         {
+             res.status(200).json({
+                 success: 1,
+                 totalNews: result.length,
+                 reason: "",
+                 NewsArray: result,
+ 
+             });
+         }
+         else
+         {
+             res.status(400).json({
+                 success: 0,
+                 totalNews: 0,
+                 reason: "No News Avaliable yet",
+                 NewsArray: [],
+             });
+         }
+    } catch (err) {
+        res.status(400).json({
+              success: 0,
+             totalNews: 0,
+             reason: "Some Error",
+             NewsArray: [],
+        });
+    } 
+ });
+
+
+
+ // get technology news
+ router.get('/technology', verifyToken, async(req, res) => {
+    try {
+
+        // Make query
+        var query = {
+            $or:[
+                    {Label:"TECHNOLOGY"},
+                ],
+            Date : today_date
+        }
+        
+         const result =  await NewsModel.find(query);
+         if(result)
+         {
+             res.status(200).json({
+                 success: 1,
+                 totalNews: result.length,
+                 reason: "",
+                 NewsArray: result,
+ 
+             });
+         }
+         else
+         {
+             res.status(400).json({
+                 success: 0,
+                 totalNews: 0,
+                 reason: "No News Avaliable yet",
+                 NewsArray: [],
+             });
+         }
+    } catch (err) {
+        res.status(400).json({
+              success: 0,
+             totalNews: 0,
+             reason: "Some Error",
+             NewsArray: [],
+        });
+    } 
+ });
+
+
+
+ // get sports news
+ router.get('/sports', verifyToken, async(req, res) => {
+    try {
+
+        // Make query
+        var query = {
+            $or:[
+                    {Label:"SPORTS"},
+                ],
+            Date : today_date
+        }
+        
+         const result =  await NewsModel.find(query);
+         if(result)
+         {
+             res.status(200).json({
+                 success: 1,
+                 totalNews: result.length,
+                 reason: "",
+                 NewsArray: result,
+ 
+             });
+         }
+         else
+         {
+             res.status(400).json({
+                 success: 0,
+                 totalNews: 0,
+                 reason: "No News Avaliable yet",
+                 NewsArray: [],
+             });
+         }
+    } catch (err) {
+        res.status(400).json({
+              success: 0,
+             totalNews: 0,
+             reason: "Some Error",
+             NewsArray: [],
+        });
+    } 
+ });
+
+
+
+ // get Business news
+ router.get('/business', verifyToken, async(req, res) => {
+    try {
+
+        // Make query
+        var query = {
+            $or:[
+                    {Label:"BUSINESS"},
+                ],
+            Date : today_date
+        }
+        
+         const result =  await NewsModel.find(query);
+         if(result)
+         {
+             res.status(200).json({
+                 success: 1,
+                 totalNews: result.length,
+                 reason: "",
+                 NewsArray: result,
+ 
+             });
+         }
+         else
+         {
+             res.status(400).json({
+                 success: 0,
+                 totalNews: 0,
+                 reason: "No News Avaliable yet",
+                 NewsArray: [],
+             });
+         }
+    } catch (err) {
+        res.status(400).json({
+              success: 0,
+             totalNews: 0,
+             reason: "Some Error",
+             NewsArray: [],
+        });
+    } 
+ });
+
+
+
+
+
 
 
 
