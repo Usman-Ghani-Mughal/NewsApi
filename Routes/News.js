@@ -91,37 +91,86 @@ router.get('/recomendedNews', verifyToken, async(req, res) => {
 
 
 
-router.get('/latestnews', verifyToken, async(req, res) => {
-   try {
-        const result =  await NewsModel.find({Date : today_date});
-        if(result)
-        {
-            res.status(200).json({
-                success: 1,
-                totalNews: result.length,
-                reason: "",
-                NewsArray: result,
 
-            });
+
+
+router.get('/latestnews', verifyToken, async(req, res) => {
+    try {
+         const result =  await NewsModel.find({Date : today_date});
+         if(result)
+         {
+             res.status(200).json({
+                 success: 1,
+                 totalNews: result.length,
+                 reason: "",
+                 NewsArray: result,
+ 
+             });
+         }
+         else
+         {
+             res.status(400).json({
+                 success: 0,
+                 totalNews: 0,
+                 reason: "No News Avaliable yet",
+                 NewsArray: [],
+             });
+         }
+    } catch (err) {
+        res.status(400).json({
+              success: 0,
+             totalNews: 0,
+             reason: "Some Error",
+             NewsArray: [],
+        });
+    } 
+ });
+
+
+ router.get('/pakistan', verifyToken, async(req, res) => {
+    try {
+
+        // Make query
+        var query = {
+            $or:[
+                    {Label:"PAKISTAN"},
+                ],
+            Date : today_date
         }
-        else
-        {
-            res.status(400).json({
-                success: 0,
-                totalNews: 0,
-                reason: "No News Avaliable yet",
-                NewsArray: [],
-            });
-        }
-   } catch (err) {
-       res.status(400).json({
-             success: 0,
-            totalNews: 0,
-            reason: "Some Error",
-            NewsArray: [],
-       });
-   } 
-});
+        
+         const result =  await NewsModel.find(query);
+         if(result)
+         {
+             res.status(200).json({
+                 success: 1,
+                 totalNews: result.length,
+                 reason: "",
+                 NewsArray: result,
+ 
+             });
+         }
+         else
+         {
+             res.status(400).json({
+                 success: 0,
+                 totalNews: 0,
+                 reason: "No News Avaliable yet",
+                 NewsArray: [],
+             });
+         }
+    } catch (err) {
+        res.status(400).json({
+              success: 0,
+             totalNews: 0,
+             reason: "Some Error",
+             NewsArray: [],
+        });
+    } 
+ });
+
+
+
+
 
 
 module.exports = router;
