@@ -1,7 +1,10 @@
 const router = require('express').Router();
 const verifyToken = require('../Validation/verifyToken');
 const {userInterestValidation} = require('../Validation/validation');
+
 const NewsModel =  require('../Models/NewsModel');
+const CoronaModel =  require('../Models/CoronaModel');
+
 const { date, string } = require('@hapi/joi');
 var dateTime = require('node-datetime');
 // Get today date.
@@ -9,6 +12,7 @@ var dt = dateTime.create();
 var today_date = dt.format('Y-m-d');
 
 
+// Get recommended news
 router.get('/recomendedNews', verifyToken, async(req, res) => {
     try {
         // check if req have userinterests or not
@@ -88,12 +92,7 @@ router.get('/recomendedNews', verifyToken, async(req, res) => {
 });
 
 
-
-
-
-
-
-
+// Get latest news
 router.get('/latestnews', verifyToken, async(req, res) => {
     try {
          const result =  await NewsModel.find({Date : today_date});
@@ -126,7 +125,7 @@ router.get('/latestnews', verifyToken, async(req, res) => {
     } 
  });
 
-
+// Get Pakistan news
  router.get('/pakistan', verifyToken, async(req, res) => {
     try {
 
@@ -300,7 +299,6 @@ router.get('/latestnews', verifyToken, async(req, res) => {
  });
 
 
-
  // get Business news
  router.get('/business', verifyToken, async(req, res) => {
     try {
@@ -344,7 +342,38 @@ router.get('/latestnews', verifyToken, async(req, res) => {
  });
 
 
-
+// Get Corna updates news
+router.get('/corona', verifyToken, async(req, res) => {
+    try {
+         const result =  await CoronaModel.find({Date : today_date});
+         if(result)
+         {
+             res.status(200).json({
+                 success: 1,
+                 totalNews: result.length,
+                 reason: "",
+                 NewsArray: result,
+ 
+             });
+         }
+         else
+         {
+             res.status(400).json({
+                 success: 0,
+                 totalNews: 0,
+                 reason: "No News Avaliable yet",
+                 NewsArray: {},
+             });
+         }
+    } catch (err) {
+        res.status(400).json({
+              success: 0,
+             totalNews: 0,
+             reason: "Some Error",
+             NewsArray: {},
+        });
+    } 
+ });
 
 
 
