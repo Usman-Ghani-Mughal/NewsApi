@@ -211,7 +211,6 @@ router.get('/latestnews', verifyToken, async(req, res) => {
  });
 
 
-
  // get technology news
  router.get('/technology', verifyToken, async(req, res) => {
     try {
@@ -253,7 +252,6 @@ router.get('/latestnews', verifyToken, async(req, res) => {
         });
     } 
  });
-
 
 
  // get sports news
@@ -352,7 +350,7 @@ router.get('/corona', verifyToken, async(req, res) => {
                  success: 1,
                  totalNews: result.length,
                  reason: "",
-                 NewsArray: result,
+                 covidData: result,
  
              });
          }
@@ -362,7 +360,7 @@ router.get('/corona', verifyToken, async(req, res) => {
                  success: 0,
                  totalNews: 0,
                  reason: "No News Avaliable yet",
-                 NewsArray: {},
+                 covidData: {},
              });
          }
     } catch (err) {
@@ -370,14 +368,10 @@ router.get('/corona', verifyToken, async(req, res) => {
               success: 0,
              totalNews: 0,
              reason: "Some Error",
-             NewsArray: {},
+             covidData: {},
         });
     } 
  });
-
-
-
-
 
 
 module.exports = router;
