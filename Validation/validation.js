@@ -35,6 +35,7 @@ const appRegisterValidation = (data) =>{
         return validateuserschema.validate(data);
 }
 
+
 // In the end we will move these two validation into other file
 
 // App Login Validation

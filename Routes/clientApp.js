@@ -75,12 +75,12 @@ router.post('/login', async  (req, res) => {
 
     // ----------------- Check if email exists  ------------------
     const app = await  AppModel.findOne({email: req.body.email});
-    if (!app) return res.status(400).send('Invalid Email or password');
+    if (!app) return res.status(400).send('Invalid Email or Password');
 
      
     // ----------------- Check if password matched  ------------------
     const validpass = await bcrypt.compare(req.body.password, app.password);
-    if (!validpass) return res.status(400).send('Invalid Email or password');
+    if (!validpass) return res.status(400).send('Invalid Email or Password');
      
     // Here 1 will be app._id
     const token = jwt.sign({_id: app._id}, process.env.secret_key);
