@@ -359,7 +359,7 @@ router.get('/corona', verifyToken, async(req, res) => {
              res.status(400).json({
                  success: 0,
                  totalNews: 0,
-                 reason: "No News Avaliable yet",
+                 reason: "No Data Avaliable yet",
                  covidData: {},
              });
          }
