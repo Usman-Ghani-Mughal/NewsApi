@@ -196,7 +196,7 @@ router.get('/latestnews', verifyToken, async(req, res) => {
              res.status(400).json({
                  success: 0,
                  totalNews: 0,
-                 reason: "No News Avaliable yet",
+                 reason: "No technology News Avaliable yet",
                  NewsArray: [],
              });
          }
@@ -239,7 +239,7 @@ router.get('/latestnews', verifyToken, async(req, res) => {
              res.status(400).json({
                  success: 0,
                  totalNews: 0,
-                 reason: "No News Avaliable yet",
+                 reason: "No technology News Avaliable yet",
                  NewsArray: [],
              });
          }
@@ -282,7 +282,7 @@ router.get('/latestnews', verifyToken, async(req, res) => {
              res.status(400).json({
                  success: 0,
                  totalNews: 0,
-                 reason: "No News Avaliable yet",
+                 reason: "No sports News Avaliable yet",
                  NewsArray: [],
              });
          }
@@ -325,7 +325,7 @@ router.get('/latestnews', verifyToken, async(req, res) => {
              res.status(400).json({
                  success: 0,
                  totalNews: 0,
-                 reason: "No News Avaliable yet",
+                 reason: "No Business News Avaliable yet",
                  NewsArray: [],
              });
          }
