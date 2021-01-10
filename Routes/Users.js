@@ -180,13 +180,13 @@ router.post('/alreadyRegister', verifyToken , async (req, res) => {
         // ----------------- Check if Email or name already in DB ------------------
         const name_email = await  UserModel.findOne({ $or : [ {email: req.body.email}, {name: req.body.name} ] });
         if (name_email){
-            return res.status(400).json({
+            return res.status(200).json({
                 success: 0,
                 description: "Name or email already exists",
                 user_details: {}
             });
         }else{
-            res.status(401).json({
+            res.status(200).json({
                 success: 1,
                 description: "Name or email  doesnot exists",
                 user_details:{}
@@ -196,7 +196,7 @@ router.post('/alreadyRegister', verifyToken , async (req, res) => {
     } catch (err) {
 
         res.status(400).json({
-            success: 0,
+            success: -1,
             description: err,
             user_details: {}
         });
