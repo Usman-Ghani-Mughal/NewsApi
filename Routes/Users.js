@@ -16,7 +16,6 @@ const verifyToken = require('../Validation/verifyToken');
 // Register Route
 router.post('/register', verifyToken , async (req, res) => {
     try {
-        
         // ----------------  Validate data -------------------
         const {error} = registerValidation(req.body);
         if (error) {
@@ -164,6 +163,48 @@ router.post('/login', verifyToken, async  (req, res) => {
     }
 
 });
+
+
+// While Login from google first check if user is already register or not?
+router.post('/alreadyRegister', verifyToken , async (req, res) => {
+    try {
+        // ----------------  Validate data -------------------
+        const {error} = registerValidation(req.body);
+        if (error) {
+            return res.status(400).json({
+                success: 0,
+                description: error.details[0].message,
+                user_details: {}
+            });
+        }
+        // ----------------- Check if Email or name already in DB ------------------
+        const name_email = await  UserModel.findOne({ $or : [ {email: req.body.email}, {name: req.body.name} ] });
+        if (name_email){
+            return res.status(400).json({
+                success: 0,
+                description: "Name or email already exists",
+                user_details: {}
+            });
+        }else{
+            res.status(401).json({
+                success: 1,
+                description: "Name or email  doesnot exists",
+                user_details:{}
+            });
+        }
+
+    } catch (err) {
+
+        res.status(400).json({
+            success: 0,
+            description: err,
+            user_details: {}
+        });
+        
+    }
+
+});
+
 
 module.exports = router;
 
