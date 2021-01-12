@@ -339,6 +339,220 @@ router.get('/latestnews', verifyToken, async(req, res) => {
     } 
  });
 
+ // get entertainment news
+ router.get('/entertainment', verifyToken, async(req, res) => {
+    try {
+
+        // Make query
+        var query = {
+            $or:[
+                    {Label:"ENTERTAINMENT"},
+                ],
+            Date : today_date
+        }
+        
+         const result =  await NewsModel.find(query);
+         if(result)
+         {
+             res.status(200).json({
+                 success: 1,
+                 totalNews: result.length,
+                 reason: "",
+                 NewsArray: result,
+ 
+             });
+         }
+         else
+         {
+             res.status(400).json({
+                 success: 0,
+                 totalNews: 0,
+                 reason: "No Entertainment News Avaliable yet",
+                 NewsArray: [],
+             });
+         }
+    } catch (err) {
+        res.status(400).json({
+              success: 0,
+             totalNews: 0,
+             reason: "Some Error",
+             NewsArray: [],
+        });
+    } 
+ });
+
+
+ // get off beat news
+ router.get('/offbeat', verifyToken, async(req, res) => {
+    try {
+
+        // Make query
+        var query = {
+            $or:[
+                    {Label:"OFFBEAT"},
+                ],
+            Date : today_date
+        }
+        
+         const result =  await NewsModel.find(query);
+         if(result)
+         {
+             res.status(200).json({
+                 success: 1,
+                 totalNews: result.length,
+                 reason: "",
+                 NewsArray: result,
+ 
+             });
+         }
+         else
+         {
+             res.status(400).json({
+                 success: 0,
+                 totalNews: 0,
+                 reason: "No offbeat News Avaliable yet",
+                 NewsArray: [],
+             });
+         }
+    } catch (err) {
+        res.status(400).json({
+              success: 0,
+             totalNews: 0,
+             reason: "Some Error",
+             NewsArray: [],
+        });
+    } 
+ });
+
+
+ // get life style news
+ router.get('/lifestyle', verifyToken, async(req, res) => {
+    try {
+
+        // Make query
+        var query = {
+            $or:[
+                    {Label:"LIFESTYLE"},
+                ],
+            Date : today_date
+        }
+        
+         const result =  await NewsModel.find(query);
+         if(result)
+         {
+             res.status(200).json({
+                 success: 1,
+                 totalNews: result.length,
+                 reason: "",
+                 NewsArray: result,
+ 
+             });
+         }
+         else
+         {
+             res.status(400).json({
+                 success: 0,
+                 totalNews: 0,
+                 reason: "No lifestyle News Avaliable yet",
+                 NewsArray: [],
+             });
+         }
+    } catch (err) {
+        res.status(400).json({
+              success: 0,
+             totalNews: 0,
+             reason: "Some Error",
+             NewsArray: [],
+        });
+    } 
+ });
+
+
+ // get Health news
+ router.get('/health', verifyToken, async(req, res) => {
+    try {
+
+        // Make query
+        var query = {
+            $or:[
+                    {Label:"HEALTH"},
+                ],
+            Date : today_date
+        }
+        
+         const result =  await NewsModel.find(query);
+         if(result)
+         {
+             res.status(200).json({
+                 success: 1,
+                 totalNews: result.length,
+                 reason: "",
+                 NewsArray: result,
+ 
+             });
+         }
+         else
+         {
+             res.status(400).json({
+                 success: 0,
+                 totalNews: 0,
+                 reason: "No health News Avaliable yet",
+                 NewsArray: [],
+             });
+         }
+    } catch (err) {
+        res.status(400).json({
+              success: 0,
+             totalNews: 0,
+             reason: "Some Error",
+             NewsArray: [],
+        });
+    } 
+ });
+
+
+ // get sci and tech news
+ router.get('/scitech', verifyToken, async(req, res) => {
+    try {
+
+        // Make query
+        var query = {
+            $or:[
+                    {Label:"SCI & TECH"},
+                ],
+            Date : today_date
+        }
+        
+         const result =  await NewsModel.find(query);
+         if(result)
+         {
+             res.status(200).json({
+                 success: 1,
+                 totalNews: result.length,
+                 reason: "",
+                 NewsArray: result,
+ 
+             });
+         }
+         else
+         {
+             res.status(400).json({
+                 success: 0,
+                 totalNews: 0,
+                 reason: "No scitech News Avaliable yet",
+                 NewsArray: [],
+             });
+         }
+    } catch (err) {
+        res.status(400).json({
+              success: 0,
+             totalNews: 0,
+             reason: "Some Error",
+             NewsArray: [],
+        });
+    } 
+ });
+
 
 // Get Corna updates news
 router.get('/corona', verifyToken, async(req, res) => {
@@ -372,6 +586,9 @@ router.get('/corona', verifyToken, async(req, res) => {
         });
     } 
  });
+
+
+
 
 
 module.exports = router;
