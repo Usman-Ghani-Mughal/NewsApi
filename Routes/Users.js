@@ -19,7 +19,7 @@ router.post('/register', verifyToken , async (req, res) => {
         // ----------------  Validate data -------------------
         const {error} = registerValidation(req.body);
         if (error) {
-            return res.status(400).json({
+            return res.status(200).json({
                 success: 0,
                 description: error.details[0].message,
                 user_details: {}
@@ -28,7 +28,7 @@ router.post('/register', verifyToken , async (req, res) => {
         // ----------------- Check if Email or name already in DB ------------------
         const name_email = await  UserModel.findOne({ $or : [ {email: req.body.email}, {name: req.body.name} ] });
         if (name_email){
-            return res.status(400).json({
+            return res.status(200).json({
                 success: 0,
                 description: "Name or email already exists",
                 user_details: {}
@@ -80,7 +80,7 @@ router.post('/register', verifyToken , async (req, res) => {
             }
             else
             {
-              return  res.status(400).json({
+              return  res.status(200).json({
                         success: 0,
                         description: "Invalid User interests",
                         user_details: {}
@@ -89,7 +89,7 @@ router.post('/register', verifyToken , async (req, res) => {
         }
         else
         {
-           return res.status(400).json({
+           return res.status(200).json({
                 success: 0,
                 description: "Request Body must have userinterests",
                 user_details: {}
