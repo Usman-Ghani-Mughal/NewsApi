@@ -10,6 +10,10 @@ var dateTime = require('node-datetime');
 // Get today date.
 var dt = dateTime.create();
 var today_date = dt.format('Y-m-d');
+dt.offsetInDays(-1);
+var yesterday = dt.format('Y-m-d');
+// yesterday.setDate(yesterday.getDate() - 1); // Yesterday!
+// yesterday = yesterday.toString();
 
 
 // Get recommended news
@@ -28,16 +32,28 @@ router.get('/recomendedNews', verifyToken, async(req, res) => {
             console.log(user_interests[2])
             if(userInterestValidation(user_interests))
             {
-                
+
                 // Make query
                 var query = {
-                                $or:[
-                                        {Label:user_interests[0]},
-                                        {Label:user_interests[1]},
-                                        {Label:user_interests[2]}
-                                    ],
-                                Date : today_date
+
+                                $and : [
+                                            { $or: [
+                                                    {Label:user_interests[0]},
+                                                    {Label:user_interests[1]},
+                                                    {Label:user_interests[2]}
+                                                ]
+                                            },
+
+                                            { $or: [
+                                                    {Date : today_date},
+                                                    {Date : yesterday}
+                                                ]
+                                            }
+                                        ]
+                            
                             }
+
+
                 // Date : today_date
                 // applay query
                 const result =  await NewsModel.find(query);
@@ -95,7 +111,17 @@ router.get('/recomendedNews', verifyToken, async(req, res) => {
 // Get latest news
 router.get('/latestnews', verifyToken, async(req, res) => {
     try {
-         const result =  await NewsModel.find({Date : today_date});
+
+        // Make query
+        var query = {
+
+            $or : [
+                    {Date : today_date},      
+                  ]
+        
+                }
+
+         const result =  await NewsModel.find(query);
          if(result)
          {
              res.status(200).json({
@@ -128,14 +154,23 @@ router.get('/latestnews', verifyToken, async(req, res) => {
 // Get Pakistan news
  router.get('/pakistan', verifyToken, async(req, res) => {
     try {
-
         // Make query
         var query = {
-            $or:[
-                    {Label:"PAKISTAN"},
-                ],
-            Date : today_date
-        }
+
+            $and : [
+                        { $or: [
+                                {Label:"PAKISTAN"},
+                               ]
+                        },
+
+                        { $or: [
+                                {Date : today_date},
+                                {Date : yesterday}
+                               ]
+                        }
+                    ]
+        
+                }
         
          const result =  await NewsModel.find(query);
          if(result)
@@ -171,14 +206,25 @@ router.get('/latestnews', verifyToken, async(req, res) => {
 // get world news
  router.get('/world', verifyToken, async(req, res) => {
     try {
-
         // Make query
         var query = {
-            $or:[
-                    {Label:"WORLD"},
-                ],
-            Date : today_date
-        }
+
+            $and : [
+                        { $or: [
+                                {Label:"WORLD"},
+                               ]
+                        },
+
+                        { $or: [
+                                {Date : today_date},
+                                {Date : yesterday}
+                               ]
+                        }
+                    ]
+        
+                }
+
+        
         
          const result =  await NewsModel.find(query);
          if(result)
@@ -217,11 +263,21 @@ router.get('/latestnews', verifyToken, async(req, res) => {
 
         // Make query
         var query = {
-            $or:[
-                    {Label:"TECHNOLOGY"},
-                ],
-            Date : today_date
-        }
+
+            $and : [
+                        { $or: [
+                                {Label:"TECHNOLOGY"},
+                               ]
+                        },
+
+                        { $or: [
+                                {Date : today_date},
+                                {Date : yesterday}
+                               ]
+                        }
+                    ]
+        
+                }
         
          const result =  await NewsModel.find(query);
          if(result)
@@ -258,13 +314,23 @@ router.get('/latestnews', verifyToken, async(req, res) => {
  router.get('/sports', verifyToken, async(req, res) => {
     try {
 
-        // Make query
-        var query = {
-            $or:[
-                    {Label:"SPORTS"},
-                ],
-            Date : today_date
-        }
+         // Make query
+         var query = {
+
+            $and : [
+                        { $or: [
+                                {Label:"SPORTS"},
+                               ]
+                        },
+
+                        { $or: [
+                                {Date : today_date},
+                                {Date : yesterday}
+                               ]
+                        }
+                    ]
+        
+                }
         
          const result =  await NewsModel.find(query);
          if(result)
@@ -303,11 +369,21 @@ router.get('/latestnews', verifyToken, async(req, res) => {
 
         // Make query
         var query = {
-            $or:[
-                    {Label:"BUSINESS"},
-                ],
-            Date : today_date
-        }
+
+            $and : [
+                        { $or: [
+                                {Label:"BUSINESS"},
+                               ]
+                        },
+
+                        { $or: [
+                                {Date : today_date},
+                                {Date : yesterday}
+                               ]
+                        }
+                    ]
+        
+                }
         
          const result =  await NewsModel.find(query);
          if(result)
@@ -343,14 +419,24 @@ router.get('/latestnews', verifyToken, async(req, res) => {
  router.get('/entertainment', verifyToken, async(req, res) => {
     try {
 
-        // Make query
-        var query = {
-            $or:[
-                    {Label:"ENTERTAINMENT"},
-                ],
-            Date : today_date
-        }
+         // Make query
+         var query = {
+
+            $and : [
+                        { $or: [
+                                {Label:"ENTERTAINMENT"},
+                               ]
+                        },
+
+                        { $or: [
+                                {Date : today_date},
+                                {Date : yesterday}
+                               ]
+                        }
+                    ]
         
+                }
+
          const result =  await NewsModel.find(query);
          if(result)
          {
@@ -383,16 +469,27 @@ router.get('/latestnews', verifyToken, async(req, res) => {
 
 
  // get off beat news
- router.get('/offbeat', verifyToken, async(req, res) => {
+ router.get('/offbeat', verifyToken,  async(req, res) => {
     try {
 
         // Make query
         var query = {
-            $or:[
-                    {Label:"OFFBEAT"},
-                ],
-            Date : today_date
-        }
+
+                $and : [
+                            { $or: [
+                                    {Label:"OFFBEAT"},
+                                   ]
+                            },
+
+                            { $or: [
+                                    {Date : today_date},
+                                    {Date : yesterday}
+                                   ]
+                            }
+                        ]
+            
+                    }
+    
         
          const result =  await NewsModel.find(query);
          if(result)
@@ -431,11 +528,21 @@ router.get('/latestnews', verifyToken, async(req, res) => {
 
         // Make query
         var query = {
-            $or:[
-                    {Label:"LIFESTYLE"},
-                ],
-            Date : today_date
-        }
+
+            $and : [
+                        { $or: [
+                                {Label:"LIFESTYLE"},
+                               ]
+                        },
+
+                        { $or: [
+                                {Date : today_date},
+                                {Date : yesterday}
+                               ]
+                        }
+                    ]
+        
+                }
         
          const result =  await NewsModel.find(query);
          if(result)
@@ -471,15 +578,24 @@ router.get('/latestnews', verifyToken, async(req, res) => {
  // get Health news
  router.get('/health', verifyToken, async(req, res) => {
     try {
-
         // Make query
         var query = {
-            $or:[
-                    {Label:"HEALTH"},
-                ],
-            Date : today_date
-        }
+
+            $and : [
+                        { $or: [
+                                {Label:"HEALTH"},
+                               ]
+                        },
+
+                        { $or: [
+                                {Date : today_date},
+                                {Date : yesterday}
+                               ]
+                        }
+                    ]
         
+                }
+                
          const result =  await NewsModel.find(query);
          if(result)
          {
@@ -514,14 +630,23 @@ router.get('/latestnews', verifyToken, async(req, res) => {
  // get sci and tech news
  router.get('/scitech', verifyToken, async(req, res) => {
     try {
-
         // Make query
         var query = {
-            $or:[
-                    {Label:"SCI & TECH"},
-                ],
-            Date : today_date
-        }
+
+            $and : [
+                        { $or: [
+                                {Label:"SCI & TECH"},
+                               ]
+                        },
+
+                        { $or: [
+                                {Date : today_date},
+                                {Date : yesterday}
+                               ]
+                        }
+                    ]
+        
+                }
         
          const result =  await NewsModel.find(query);
          if(result)

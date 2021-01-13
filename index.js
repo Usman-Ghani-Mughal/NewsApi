@@ -41,8 +41,15 @@ app.get('/', (req, res) => {
 var server_port = process.env.PORT;
 var server_host = process.env.MY_HOST || process.env.HOST  || '0.0.0.0';
 
+
 app.listen(server_port, server_host ,()=>{
     console.log(`Sever is running in ${process.env.NODE_ENV} mode on port : ${server_port}`);
 });
 
 
+
+
+/* 
+    change server port code in index js,
+    chnage code in news js
+*/
