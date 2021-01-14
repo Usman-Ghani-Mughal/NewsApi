@@ -713,9 +713,6 @@ router.get('/corona', verifyToken, async(req, res) => {
  });
 
 
-
-
-
 module.exports = router;
 
 

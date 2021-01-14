@@ -21,6 +21,7 @@ connectDB();
 const userAuthRoute = require('./Routes/Users');
 const appAuthRoute  = require('./Routes/clientApp');
 const newsRoute = require('./Routes/News');
+const testPython = require('./Routes/pynode');
 
 // Middleware (body parser for json)
 app.use(express.json());
@@ -31,6 +32,7 @@ app.use(cors());
 app.use('/newsapi/user', userAuthRoute);
 app.use('/newsapi/app', appAuthRoute);
 app.use('/newsapi', newsRoute);
+app.use('/python', testPython);
 
 app.get('/', (req, res) => {
     res.send("<center><h1>working API</h1></center>");
@@ -42,9 +44,13 @@ var server_port = process.env.PORT;
 var server_host = process.env.MY_HOST || process.env.HOST  || '0.0.0.0';
 
 
-app.listen(server_port, server_host ,()=>{
-    console.log(`Sever is running in ${process.env.NODE_ENV} mode on port : ${server_port}`);
+app.listen(3000 ,()=>{
+    console.log(`Sever is running on port ${3000}`);
 });
+
+// app.listen(server_port, server_host ,()=>{
+//     console.log(`Sever is running in ${process.env.NODE_ENV} mode on port : ${server_port}`);
+// });
 
 
 
