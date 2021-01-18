@@ -191,11 +191,13 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
  router.get('/userrecommendednews', verifyToken, async(req, res)=>{
 
     try {
+        console.log("we are in");
 
         // check if req have userinterests or not
         var query_parameter =  req.query;
         if(query_parameter.userinterests && query_parameter.name)
         {
+            console.log("we got name and interest");
             var user_interests = query_parameter.userinterests;
             console.log("Orignal_user Interest : ",user_interests)
             user_interests = user_interests.split(",");
@@ -205,6 +207,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
             console.log(user_interests[2])
             if(userInterestValidation(user_interests))
             {
+                console.log("interests are valid");
                 // Make query
                 var query = {
                                 $and : [
@@ -223,8 +226,11 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
                             }
                 // applay query
                 var result =  await NewsModel.find(query);
+                console.log("result done");
                 if(result){
+                    console.log("result ok");
                     result = shuffle(result);
+                    console.log("result shuffle ok");
                     // res.status(200).json({
                     //     success: 1,
                     //     totalNews: result.length,
@@ -235,18 +241,21 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
                     //--------------------- Now Association rule mining --------------------//
 
                     const py = spawn('python', ['./PythonScripts/Get_User_Recomendation.py', query_parameter.name] );
+                    console.log("python called");
                     py.stdout.on('data', async (data) => {
-
+                        console.log("python return");
                         var user_label = await data.toString();
                         user_label = user_label.replace(/(\r\n|\n|\r)/gm,"");
-
+                        console.log(user_label);
                         // make querry
                         var query1 = {Label: user_label}
                         const result1 =  await BigNewsModel.find(query1);
-            
+                        console.log(" result one done");
                         if(result1)
                         {
+                            console.log(" result one ok");
                                 if(result1.length < 6){
+                                    console.log(" result one ok not");
                                     var mostPopularInterests = ['PAKISTAN', 'WORLD', 'BUSINESS', 'TECHNOLOGY']
                                     var number =  between(0,3);
                                     var selectedInterst =  mostPopularInterests[number];
@@ -264,6 +273,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
                                             ]
                                         }
                                         const result1 =  await BigNewsModel.find(query1);
+                                        console.log(" result one ok not ok");
                                         res.status(200).json({
                                             success: 1,
                                             totalNews: result.length,
@@ -274,6 +284,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
                                         });
             
                                 }else{
+                                    console.log(" result one ok ok");
                                     res.status(200).json({
                                         success: 1,
                                         totalNews: result.length,
@@ -286,6 +297,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
                                 
                         }
                         else{
+                            console.log(" result one juagr");
                                 var mostPopularInterests = ['PAKISTAN', 'WORLD', 'BUSINESS', 'TECHNOLOGY']
                                 var number =  between(0,3);
                                 var selectedInterst =  mostPopularInterests[number];
