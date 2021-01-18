@@ -1,1 +1,1 @@
-worker: python ./PythonScripts/testpython.py
+pipinstall: pip install -r requirements.txt
