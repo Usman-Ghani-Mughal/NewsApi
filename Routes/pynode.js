@@ -340,6 +340,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
                         // send response what it must have name in query parameters
                     }
             }else{
+                console.log("ERROR 2");
                         res.status(400).json({
                             success: 0,
                             totalNews: 0,
@@ -349,8 +350,8 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
                             NewsArray1: [],
                         });
                 }
-        }else
-            {
+        }else{
+                console.log("ERROR 1");
                 res.status(400).json({
                     success: 0,
                     totalNews: 0,
