@@ -327,6 +327,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
                     });
             
                 }else{
+                    console.log(" result one juagr");
                         res.status(200).json({
                             success: 0,
                             totalNews: 0,
@@ -361,6 +362,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
             }
         
     } catch (err) {
+        console.log(" ERROR");
         res.status(400).json({
             success: 0,
             totalNews: 0,
