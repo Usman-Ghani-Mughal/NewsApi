@@ -16,6 +16,33 @@ var yesterday = dt.format('Y-m-d');
 // yesterday = yesterday.toString();
 
 
+function shuffle(array) {
+    var currentIndex = array.length
+      , temporaryValue
+      , randomIndex
+      ;
+    var array_length = array.length;
+
+    // While there remain elements to shuffle...
+    currentIndex = Math.floor(currentIndex /2);
+
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex1 = Math.floor(Math.random() * array_length);
+      randomIndex2 = Math.floor(Math.random() * array_length);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[randomIndex1];
+      array[randomIndex1] = array[randomIndex2];
+      array[randomIndex2] = temporaryValue;
+    }
+
+    return array;
+  }
+
+
 // Get recommended news
 router.get('/recomendedNews', verifyToken, async(req, res) => {
     try {
@@ -56,9 +83,10 @@ router.get('/recomendedNews', verifyToken, async(req, res) => {
 
                 // Date : today_date
                 // applay query
-                const result =  await NewsModel.find(query);
+                var result =  await NewsModel.find(query);
                 if(result)
                 {
+                    result = shuffle(result);
                     res.status(200).json({
                         success: 1,
                         totalNews: result.length,
@@ -121,9 +149,10 @@ router.get('/latestnews', verifyToken, async(req, res) => {
         
                 }
 
-         const result =  await NewsModel.find(query);
+         var result =  await NewsModel.find(query);
          if(result)
          {
+             result = shuffle(result);
              res.status(200).json({
                  success: 1,
                  totalNews: result.length,
@@ -172,9 +201,10 @@ router.get('/latestnews', verifyToken, async(req, res) => {
         
                 }
         
-         const result =  await NewsModel.find(query);
+         var result =  await NewsModel.find(query);
          if(result)
          {
+            result = shuffle(result);
              res.status(200).json({
                  success: 1,
                  totalNews: result.length,
@@ -226,9 +256,10 @@ router.get('/latestnews', verifyToken, async(req, res) => {
 
         
         
-         const result =  await NewsModel.find(query);
+         var result =  await NewsModel.find(query);
          if(result)
          {
+            result = shuffle(result);
              res.status(200).json({
                  success: 1,
                  totalNews: result.length,
@@ -279,9 +310,10 @@ router.get('/latestnews', verifyToken, async(req, res) => {
         
                 }
         
-         const result =  await NewsModel.find(query);
+         var result =  await NewsModel.find(query);
          if(result)
          {
+            result = shuffle(result);
              res.status(200).json({
                  success: 1,
                  totalNews: result.length,
@@ -332,9 +364,10 @@ router.get('/latestnews', verifyToken, async(req, res) => {
         
                 }
         
-         const result =  await NewsModel.find(query);
+         var result =  await NewsModel.find(query);
          if(result)
          {
+            result = shuffle(result);
              res.status(200).json({
                  success: 1,
                  totalNews: result.length,
@@ -385,9 +418,10 @@ router.get('/latestnews', verifyToken, async(req, res) => {
         
                 }
         
-         const result =  await NewsModel.find(query);
+         var result =  await NewsModel.find(query);
          if(result)
          {
+            result = shuffle(result);
              res.status(200).json({
                  success: 1,
                  totalNews: result.length,
@@ -437,9 +471,10 @@ router.get('/latestnews', verifyToken, async(req, res) => {
         
                 }
 
-         const result =  await NewsModel.find(query);
+         var result =  await NewsModel.find(query);
          if(result)
          {
+            result = shuffle(result);
              res.status(200).json({
                  success: 1,
                  totalNews: result.length,
@@ -491,9 +526,10 @@ router.get('/latestnews', verifyToken, async(req, res) => {
                     }
     
         
-         const result =  await NewsModel.find(query);
+         var result =  await NewsModel.find(query);
          if(result)
          {
+            result = shuffle(result);
              res.status(200).json({
                  success: 1,
                  totalNews: result.length,
@@ -544,9 +580,10 @@ router.get('/latestnews', verifyToken, async(req, res) => {
         
                 }
         
-         const result =  await NewsModel.find(query);
+         var result =  await NewsModel.find(query);
          if(result)
          {
+            result = shuffle(result);
              res.status(200).json({
                  success: 1,
                  totalNews: result.length,
@@ -596,9 +633,11 @@ router.get('/latestnews', verifyToken, async(req, res) => {
         
                 }
                 
-         const result =  await NewsModel.find(query);
+         var result =  await NewsModel.find(query);
          if(result)
          {
+            result = shuffle(result);
+            // result = shuffle(result);
              res.status(200).json({
                  success: 1,
                  totalNews: result.length,
@@ -620,7 +659,7 @@ router.get('/latestnews', verifyToken, async(req, res) => {
         res.status(400).json({
               success: 0,
              totalNews: 0,
-             reason: "Some Error",
+             reason: 'Some Error',
              NewsArray: [],
         });
     } 
@@ -648,9 +687,10 @@ router.get('/latestnews', verifyToken, async(req, res) => {
         
                 }
         
-         const result =  await NewsModel.find(query);
+         var result =  await NewsModel.find(query);
          if(result)
          {
+            result = shuffle(result);
              res.status(200).json({
                  success: 1,
                  totalNews: result.length,

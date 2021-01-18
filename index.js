@@ -22,6 +22,7 @@ const userAuthRoute = require('./Routes/Users');
 const appAuthRoute  = require('./Routes/clientApp');
 const newsRoute = require('./Routes/News');
 const testPython = require('./Routes/pynode');
+const newsChanels = require('./Routes/NewsChanels');
 
 // Middleware (body parser for json)
 app.use(express.json());
@@ -33,6 +34,7 @@ app.use('/newsapi/user', userAuthRoute);
 app.use('/newsapi/app', appAuthRoute);
 app.use('/newsapi', newsRoute);
 app.use('/python', testPython);
+app.use('/news', newsChanels);
 
 app.get('/', (req, res) => {
     res.send("<center><h1>working API</h1></center>");
