@@ -377,6 +377,30 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
  });
 
 
+
+
+ router.get('/test', verifyToken, async(req, res) => {
+    
+    const py = spawn('python', ['./PythonScripts/testpython.py'] );
+
+    py.stdout.on('data', (data) => {
+        var  ok = data.toString()
+        console.log(ok);
+        res.status(200).json({
+                    success: ok
+              });
+    });
+
+    py.on('close', (code)=>{
+        console.log(`Process closed exited with coode  ${code}`);
+            // res.status(400).json({
+            //         success: 0,
+            //   });
+    });
+    console.log("below");
+ });
+
+
 module.exports = router;
 
 
