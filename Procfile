@@ -1,1 +1,1 @@
-pipinstall: pip install -r requirements.txt
+pipinstall: python get-pip.py
