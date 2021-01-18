@@ -2,12 +2,13 @@
 import sys
 import os
 import re
-
+import platform
 
 
 def main():
-    with open('usersRecommendationFile.txt', 'r') as reader:
-        print(reader.readline())
+    print(platform.python_version())
+    # with open('usersRecommendationFile.txt', 'r') as reader:
+    #     print(reader.readline())
     
     
 
