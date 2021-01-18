@@ -1,5 +1,4 @@
 # # Imports
-import pandas as pd
 import sys
 import os
 import re
@@ -7,7 +6,8 @@ import re
 
 
 def main():
-    print("ok")
+    with open('usersRecommendationFile.txt', 'r') as reader:
+        print(reader.readline())
     
     
 
