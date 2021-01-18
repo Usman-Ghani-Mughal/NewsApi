@@ -19,7 +19,7 @@ const spawn  = require('child_process').spawn;
 const Joi = require('@hapi/joi');
 
 // Genrate Rules
-router.get('/genraterules', async(req, res) => {
+router.get('/genraterules', verifyToken, async(req, res) => {
     
     const py = spawn('python', ['./PythonScripts/Genrate_Rules.py'] );
 
@@ -44,7 +44,7 @@ router.get('/genraterules', async(req, res) => {
 
 
  // Genrate Rules
-router.get('/genrateuerprofiles', async(req, res) => {
+router.get('/genrateuerprofiles', verifyToken, async(req, res) => {
     
     const py = spawn('python', ['./PythonScripts/Genrate_Users_Profile.py'] );
 
@@ -68,7 +68,7 @@ router.get('/genrateuerprofiles', async(req, res) => {
 
 
   // Genrate Rules
-router.get('/userrecommendations', async (req, res) => {
+router.get('/userrecommendations',  verifyToken , async (req, res) => {
     try {
         // check if req have name or not
         var query_parameter =  req.query;
