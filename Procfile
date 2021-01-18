@@ -1,1 +1,0 @@
-pipinstall: python get-pip.py
