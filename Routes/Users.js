@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const UserModel = require('../Models/UserModel');
 
+const BigNewsModel =  require('../Models/BigNewsModel');
+const spawn  = require('child_process').spawn;
+
 // user reg and login validation
 const {registerValidation} = require('../Validation/validation');
 const {loginValidation} = require('../Validation/validation');
@@ -64,11 +67,28 @@ router.post('/register', verifyToken , async (req, res) => {
                 // save user into the data base
                 const saveduser = await user.save();
                 if(saveduser){
-                    return res.status(200).json({
+
+
+
+                     res.status(200).json({
                         success: 1,
                         description: "User Saved Successfully!",
                         user_details: saveduser
                     });
+
+                    const py = spawn('python', ['./PythonScripts/Genrate_Users_Profile.py', saveduser.userinterests, saveduser.name] );
+                    py.stdout.on('data', (data) => {
+                        console.log(data.toString());
+                    });
+                    py.on('close', (code)=>{
+                        console.log(`Process closed exited with coode  ${code}`);
+                            // res.status(400).json({
+                            //         success: 0,
+                            //   });
+                    });
+
+
+
                 }
                 else{
                     return res.status(400).json({
