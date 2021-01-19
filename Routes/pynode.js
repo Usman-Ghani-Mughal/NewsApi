@@ -194,7 +194,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
  });
 
 
- router.get('/userrecommendednews', verifyToken, async(req, res)=>{
+ router.get('/test', verifyToken, async(req, res)=>{
 
     try {
         console.log("we are in");
@@ -387,7 +387,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
 
 
 
- router.get('/test', verifyToken, async(req, res) => {
+ router.get('/userrecommendednews', verifyToken, async(req, res) => {
     
     try {
             console.log("we are in");
