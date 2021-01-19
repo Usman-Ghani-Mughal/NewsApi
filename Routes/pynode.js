@@ -462,19 +462,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
                                         var mostPopularInterests = ['PAKISTAN', 'WORLD', 'BUSINESS', 'TECHNOLOGY']
                                         var number =  between(0,3);
                                         var selectedInterst =  mostPopularInterests[number];
-                                        var query1 = {
-                                            $and : [
-                                                    { $or: [
-                                                            {Label:selectedInterst},
-                                                        ]
-                                                    },
-                                                    { $or: [
-                                                            {Date : today_date},
-                                                            {Date : yesterday}
-                                                        ]
-                                                    }
-                                                ]
-                                            }
+                                        var query1 = {Label:selectedInterst}
                                             const result1 =  await BigNewsModel.find(query1);
                                             console.log(" result one ok not ok");
                                             return res.status(200).json({
@@ -504,19 +492,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
                                 var mostPopularInterests = ['PAKISTAN', 'WORLD', 'BUSINESS', 'TECHNOLOGY']
                                 var number =  between(0,3);
                                 var selectedInterst =  mostPopularInterests[number];
-                                var query1 = {
-                                                $and : [
-                                                    { $or: [
-                                                            {Label:selectedInterst},
-                                                        ]
-                                                    },
-                                                    { $or: [
-                                                            {Date : today_date},
-                                                            {Date : yesterday}
-                                                        ]
-                                                    }
-                                                ]
-                                            }
+                                var query1 = {Label:selectedInterst}
                                 const result1 =  await BigNewsModel.find(query1);
                                 return res.status(200).json({
                                     success: 1,
