@@ -477,7 +477,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
                                             }
                                             const result1 =  await BigNewsModel.find(query1);
                                             console.log(" result one ok not ok");
-                                            res.status(200).json({
+                                            return res.status(200).json({
                                                 success: 1,
                                                 totalNews: result.length,
                                                 totalNews1: result1.length,
@@ -488,7 +488,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
                 
                                     }else{
                                             console.log(" result one ok ok");
-                                            res.status(200).json({
+                                            return res.status(200).json({
                                                 success: 1,
                                                 totalNews: result.length,
                                                 totalNews1: result1.length,
@@ -518,7 +518,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
                                                 ]
                                             }
                                 const result1 =  await BigNewsModel.find(query1);
-                                res.status(200).json({
+                                return res.status(200).json({
                                     success: 1,
                                     totalNews: result.length,
                                     totalNews1: result1.length,
@@ -542,7 +542,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
                     else
                     {
                         console.log(" result one juagr");
-                        res.status(200).json({
+                        return res.status(200).json({
                             success: 0,
                             totalNews: 0,
                             totalNews1: 0,
@@ -557,7 +557,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
                 else
                 {
                     console.log("ERROR 2");
-                        res.status(400).json({
+                    return res.status(400).json({
                             success: 0,
                             totalNews: 0,
                             totalNews1: 0,
@@ -570,7 +570,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
             else
             {
                 console.log("ERROR 1");
-                res.status(400).json({
+                return res.status(400).json({
                     success: 0,
                     totalNews: 0,
                     totalNews1: 0,
@@ -582,7 +582,7 @@ router.get('/userrecommendations',  verifyToken , async (req, res) => {
         
         } catch (err) {
                 console.log(" ERROR");
-                res.status(400).json({
+                return    res.status(400).json({
                     success: 0,
                     totalNews: 0,
                     totalNews1: 0,
