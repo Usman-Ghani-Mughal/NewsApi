@@ -20,7 +20,6 @@ class GenrateUserProfile:
             # select collection
             self.collection = self.db[GenrateUserProfile.COLLECTION_NAME]
 
-            print("Genrating profiles ...")
             self.genrate_profile()
             print("User Profiles are genrated succesfully.")
         except Exception as e:
@@ -30,15 +29,13 @@ class GenrateUserProfile:
         try:
             rul_df = pd.read_csv('RecomendationFiles/Rules_dataFrame.csv', converters={'antecedents': eval, 'consequents': eval})
             users = pd.DataFrame(data=self.collection.find({}))
-            print("Got all users")
-            self.con.close()
+            
 
+            self.con.close()
             users = users[['name', 'userinterests']]
             names = users.name.to_list()
             uinterest = users.userinterests.to_list()
 
-
-            print("Got Users info")
             users_Recomendations_df = pd.DataFrame(columns=rul_df.columns)
 
             # For each user.
@@ -89,8 +86,6 @@ class GenrateUserProfile:
             return True
         else:
             return False
-
-
 
 def main():
     obj = GenrateUserProfile()
