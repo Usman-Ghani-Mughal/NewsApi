@@ -114,13 +114,14 @@ router.get('/genrateuserprofiles', verifyToken, async(req, res) => {
 router.get('/userrecommendednews', verifyToken, async(req, res) => {
     try {
             // check if req have userinterests or not
+            console.log("Recommended news")
             var query_parameter =  req.query;
             if(query_parameter.userinterests && query_parameter.name)
             {
 
                 var user_interests = query_parameter.userinterests;
                 user_interests = user_interests.split(",");
-
+                console.log("Got interests and name")
                 if(userInterestValidation(user_interests))
                 {
                     // Make query
@@ -141,12 +142,14 @@ router.get('/userrecommendednews', verifyToken, async(req, res) => {
                                 }
                     // applay query
                     var result =  await NewsModel.find(query);
+                    console.log("Got basic Interests news")
                     if(result)
                     {
                         result = shuffle(result);
                         //--------------------- Now Association rule mining --------------------//
                         
                         // call python file.
+                        console.log("going to python")
                         const py = spawn('python', ['./PythonScripts/Get_User_Recomendation.py', query_parameter.name] );
 
                         py.stdout.on('data', async (data) => 
@@ -156,15 +159,18 @@ router.get('/userrecommendednews', verifyToken, async(req, res) => {
                             // python string have \r and \n in the end of string
 
                             user_label = user_label.replace(/(\r\n|\n|\r)/gm,"");
-
+                            console.log("back from python")
+                            console.log(user_label)
                             // make querry
                             var query1 = {Label: user_label}
                             const result1 =  await BigNewsModel.find(query1);
 
                             if(result1)
                             {
+                                console.log("we have result")
                                     if(result1.length < 6)
                                     {
+                                        console.log("result is less then 6")
                                         // in case the user interest news length is less then 6
                                         // then we will add some more recommended news to it.
 
@@ -188,7 +194,7 @@ router.get('/userrecommendednews', verifyToken, async(req, res) => {
                                     }else{
                                         // if user recommended news are greater then 6
                                         // so ok lets send news to user.
-
+                                        console.log("result is greater then 6")
                                             return res.status(200).json({
                                                 success: 1,
                                                 totalNews: result.length,
@@ -201,6 +207,7 @@ router.get('/userrecommendednews', verifyToken, async(req, res) => {
                             }
                             else
                             {
+                                console.log("wrong")
                                 var mostPopularInterests = ['PAKISTAN', 'WORLD', 'BUSINESS', 'TECHNOLOGY']
                                 var number =  between(0,3);
                                 var selectedInterst =  mostPopularInterests[number];

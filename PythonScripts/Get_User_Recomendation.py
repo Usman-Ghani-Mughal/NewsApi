@@ -16,7 +16,7 @@ def main():
         USER_PASSWORD = "news-shop"
         CONNECTION_STRING = "mongodb+srv://news-shop:news-shop@newscluster.wyfdp.mongodb.net/NEWS_DATABASE?retryWrites=true&w=majority"
 
-        con = pymongo.MongoClient()
+        con = pymongo.MongoClient(CONNECTION_STRING)
         db = con[DB_NAME]
         collection = db[COLLECTION_NAME]
         query = {"Name": sys.argv[1]}
