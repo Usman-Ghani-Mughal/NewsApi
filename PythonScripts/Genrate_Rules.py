@@ -9,18 +9,15 @@ class GenrateRules:
     COLLECTION_NAME = 'User_collection'
     USER_NAME = "news-shop"
     USER_PASSWORD = "news-shop"
+    CONNECTION_STRING = "mongodb+srv://news-shop:news-shop@newscluster.wyfdp.mongodb.net/NEWS_DATABASE?retryWrites=true&w=majority"
 
     def __init__(self):
         try:
-            print("in const")
             # create connection
-            self.con = pymongo.MongoClient(
-                "mongodb+srv://news-shop:news-shop@newscluster.wyfdp.mongodb.net/NEWS_DATABASE?retryWrites=true&w=majority")
+            self.con = pymongo.MongoClient(GenrateRules.CONNECTION_STRING)
+            print("Connection made succesfully")
 
-            
-            print("conection made")
-
-            # connect database
+            # select database
             self.db = self.con[GenrateRules.DB_NAME]
 
             # select collection
@@ -46,16 +43,18 @@ class GenrateRules:
             names = df.name.to_list()
             uinterest = df.userinterests.to_list()
             
-            # loop through all all transactions
+            # loop through all transactions
             for name,u_i in zip(names,uinterest):
                 # Convert interests into list
                 u_i_list = u_i.split(',')
                 row = dict()
+
                 for category in categories:
                     if category in u_i_list:
                         row[category] = 1
                     else:
                         row[category] = 0
+                
                 # make series with index name
                 row = pd.Series(row, name=name)
                 # insert row in  data frame
@@ -75,13 +74,12 @@ class GenrateRules:
 
             rul.to_csv('RecomendationFiles/Rules_dataFrame.csv', index=False)
 
-            print("*** Rules are genrates Successfully")
+            print("*** Rules are genrates Successfully ***")
 
         except Exception as e:
-            print("*** Some error ", e)
+            print("*** Some error *** ", e)
 
 def main():
-    print("in main")
     obj = GenrateRules()
     
 

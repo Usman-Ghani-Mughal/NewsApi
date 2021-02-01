@@ -4,7 +4,7 @@ const verifyToken = require('../Validation/verifyToken');
 
 const NewsModel =  require('../Models/NewsModel');
 
-const { date, string } = require('@hapi/joi');
+// const { date, string } = require('@hapi/joi');
 
 var dateTime = require('node-datetime');
 // Get today date.
@@ -42,7 +42,7 @@ function shuffle(array) {
 
 
 // Get Pakistan news
- router.get('/channels', verifyToken, async(req, res) => {
+ router.get('/channel', verifyToken, async(req, res) => {
 
     try {
 

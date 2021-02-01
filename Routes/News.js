@@ -5,15 +5,15 @@ const {userInterestValidation} = require('../Validation/validation');
 const NewsModel =  require('../Models/NewsModel');
 const CoronaModel =  require('../Models/CoronaModel');
 
-const { date, string } = require('@hapi/joi');
+// const { date, string } = require('@hapi/joi');
 var dateTime = require('node-datetime');
+
 // Get today date.
 var dt = dateTime.create();
 var today_date = dt.format('Y-m-d');
 dt.offsetInDays(-1);
 var yesterday = dt.format('Y-m-d');
-// yesterday.setDate(yesterday.getDate() - 1); // Yesterday!
-// yesterday = yesterday.toString();
+
 
 
 function shuffle(array) {
@@ -754,18 +754,3 @@ router.get('/corona', verifyToken, async(req, res) => {
 
 
 module.exports = router;
-
-
-
-
-// router.get('/recomendedNews', verifyToken ,(req, res) => {
-//     res.json(
-//         {
-//             news: {
-//                 news: "skjhdfja",
-//                 link: "askjdhfkja",
-//                 user: req.user
-//             }
-//         }
-//     );
-// });

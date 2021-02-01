@@ -41,12 +41,7 @@ router.post('/register', verifyToken , async (req, res) => {
         // ----------------  Validate user interests -------------------
         var userinterests = req.body.userinterests;
         if(userinterests){
-            console.log("Orignal_user Interest : ",userinterests);
             user_interests = userinterests.split(",");
-            console.log("operated user interst : ", user_interests);
-            console.log(user_interests[0]);
-            console.log(user_interests[1]);
-            console.log(user_interests[2]);
 
             if(userInterestValidation(user_interests)){
 
@@ -75,7 +70,9 @@ router.post('/register', verifyToken , async (req, res) => {
                         description: "User Saved Successfully!",
                         user_details: saveduser
                     });
-
+                    
+                    // Response has been send back to user lets genrate the user profile for recommendations.
+                    
                     const py = spawn('python', ['./PythonScripts/Genrate_Users_Profile.py', saveduser.userinterests, saveduser.name] );
                     py.stdout.on('data', (data) => {
                         console.log(data.toString());
