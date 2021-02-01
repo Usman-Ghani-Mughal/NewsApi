@@ -43,16 +43,16 @@ var server_host = process.env.MY_HOST || process.env.HOST  || '0.0.0.0';
 
 // For running sever localy
 
-app.listen(3000 ,()=>{
-    console.log(`Sever is running on port ${3000}`);
-});
+// app.listen(3000 ,()=>{
+//     console.log(`Sever is running on port ${3000}`);
+// });
 
 
 // For Running server online.
 
-// app.listen(server_port, server_host ,()=>{
-//     console.log(`Sever is running in ${process.env.NODE_ENV} mode on port : ${server_port}`);
-// });
+app.listen(server_port, server_host ,()=>{
+    console.log(`Sever is running in ${process.env.NODE_ENV} mode on port : ${server_port}`);
+});
 
 
 
