@@ -8,7 +8,6 @@ def main():
     # # with open('usersRecommendationFile.txt', 'r') as reader:
     # #     print(reader.readline())
     # print("ok")
-
     try:
         DB_NAME = 'NEWS_DATABASE'
         COLLECTION_NAME = 'Users_profiles'

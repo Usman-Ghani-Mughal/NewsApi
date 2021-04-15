@@ -722,7 +722,9 @@ router.get('/latestnews', verifyToken, async(req, res) => {
 // Get Corna updates news
 router.get('/corona', verifyToken, async(req, res) => {
     try {
-         const result =  await CoronaModel.find({Date : today_date});
+        //  const result =  await CoronaModel.find({Date : today_date});
+        let result =  await CoronaModel.find();
+        result = result[result.length -1];
          if(result)
          {
              res.status(200).json({
