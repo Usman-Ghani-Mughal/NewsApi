@@ -543,7 +543,7 @@ router.get('/latestnews', verifyToken, async(req, res) => {
              res.status(400).json({
                  success: 0,
                  totalNews: 0,
-                 reason: "No offbeat News Avaliable yet",
+                 reason: "No offbeat News avaliable yet",
                  NewsArray: [],
              });
          }
